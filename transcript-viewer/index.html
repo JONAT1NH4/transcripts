@@ -1,40 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Visualizador de Transcript</title>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background-color: #1e1e2f;
-        color: white;
-        font-family: Arial, sans-serif;
-      }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-      }
-      .error {
-        padding: 2rem;
-        text-align: center;
-        font-size: 1.2rem;
-        color: #ff6b6b;
-      }
-    </style>
-  </head>
-  <body>
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const url = params.get("url");
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador de Transcritos</title>
+</head>
+<body>
+  <h1>Visualizar Transcrito</h1>
+  <iframe id="transcriptViewer" style="width: 100%; height: 80vh;" frameborder="0"></iframe>
 
-      if (url) {
-        document.write(`<iframe src="${url}"></iframe>`);
-      } else {
-        document.write(`<div class="error">Nenhuma URL de transcript foi fornecida.</div>`);
-      }
-    </script>
-  </body>
+  <script>
+    // Obtém a URL passada como parâmetro
+    const urlParams = new URLSearchParams(window.location.search);
+    const url = urlParams.get('url');
+    
+    if (url) {
+      // Definir a URL do transcrito no iframe
+      document.getElementById('transcriptViewer').src = url;
+    }
+  </script>
+</body>
 </html>
