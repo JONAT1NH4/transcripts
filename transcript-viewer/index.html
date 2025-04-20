@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visualizador de Transcritos</title>
-</head>
-<body>
-  <h1>Visualizar Transcrito</h1>
-  <iframe id="transcriptViewer" style="width: 100%; height: 80vh;" frameborder="0"></iframe>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Visualizador de Transcript</title>
+  </head>
+  <body>
+    <h1>?url=</h1>
+    <div id="content"></div> <!-- Local onde o conteúdo será inserido -->
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const url = params.get('url');
 
-  <script>
-    // Obtém a URL passada como parâmetro
-    const urlParams = new URLSearchParams(window.location.search);
-    const url = urlParams.get('url');
-    
-    if (url) {
-      // Definir a URL do transcrito no iframe
-      document.getElementById('transcriptViewer').src = url;
-    }
-  </script>
-</body>
+      if (url) {
+        // Usando fetch para obter o conteúdo do link
+        fetch(url)
+          .then(response => response.text())
+          .then(html => {
+            // Injetando o HTML na página
+            document.getElementById('content').innerHTML = html;
+          })
+          .catch(error => {
+            console.error("Erro ao carregar o HTML:", error);
+            document.getElementById('content').innerHTML = "<p>Não foi possível carregar o transcript.</p>";
+          });
+      }
+    </script>
+  </body>
 </html>
